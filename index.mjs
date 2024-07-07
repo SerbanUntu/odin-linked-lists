@@ -45,6 +45,63 @@ export class LinkedList {
 		return currentNode
 	}
 
+	at(index) {
+		if (!Number.isInteger(index)) {
+			console.error('Error: Invalid index')
+			return
+		}
+		if (index < 0) index += this.size()
+		let currentNode = this.head
+		let i = 0
+		while (i < index && currentNode !== null) {
+			currentNode = currentNode.nextNode
+			i++
+		}
+		if (currentNode !== null) return currentNode
+		console.error('Error: Index out of range')
+	}
+
+	pop() {
+		if (this.head === null) {
+			console.error('Error: Cannot pop from empty list')
+			return
+		}
+		if (this.head.nextNode === null) {
+			this.head = null
+			return
+		}
+		let currentNode = this.head
+		while (currentNode.nextNode.nextNode !== null) {
+			currentNode = currentNode.nextNode
+		}
+		currentNode.nextNode = null
+		return false
+	}
+
+	contains(value) {
+		let currentNode = this.head
+		while (currentNode !== null) {
+			if (currentNode.value === value) {
+				return true
+			}
+			currentNode = currentNode.nextNode
+		}
+		return false
+	}
+
+	find(value) {
+		let index = 0
+		let currentNode = this.head
+		while (currentNode !== null) {
+			if (currentNode.value === value) {
+				return index
+			}
+			index++
+			currentNode = currentNode.nextNode
+		}
+		return null
+	}
+
 	toString() {
 		if (this.head === null) return 'Empty list'
 		let result = `( ${this.head.value} )`
