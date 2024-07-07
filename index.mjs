@@ -51,6 +51,10 @@ export class LinkedList {
 			return
 		}
 		if (index < 0) index += this.size()
+		if (index < 0) {
+			console.error('Error: Index out of range')
+			return
+		}
 		let currentNode = this.head
 		let i = 0
 		while (i < index && currentNode !== null) {
@@ -112,5 +116,65 @@ export class LinkedList {
 		}
 		result += ` -> null`
 		return result
+	}
+
+	insertAt(value, index) {
+		if (!Number.isInteger(index)) {
+			console.error('Error: Invalid index')
+			return
+		}
+		if (index < 0) index += this.size() + 1
+		if (index < 0) {
+			console.error('Error: Index out of range')
+			return
+		}
+		if (index === 0) {
+			this.prepend(value)
+			return
+		}
+		let currentNode = this.head
+		let i = 0
+		while (i < index - 1 && currentNode !== null) {
+			currentNode = currentNode.nextNode
+			i++
+		}
+		if (currentNode === null) {
+			console.error('Error: Index out of range')
+			return
+		}
+		const remaining = currentNode.nextNode
+		currentNode.nextNode = new Node(value, remaining)
+	}
+
+	removeAt(index) {
+		if (this.head === null) {
+			console.error('Error: Cannot remove from empty list')
+			return
+		}
+		if (!Number.isInteger(index)) {
+			console.error('Error: Invalid index')
+			return
+		}
+		if (index < 0) index += this.size()
+		if (index < 0) {
+			console.error('Error: Index out of range')
+			return
+		}
+		if (index === 0) {
+			this.head = this.head.nextNode
+			return
+		}
+		let currentNode = this.head
+		let i = 0
+		while (i < index - 1 && currentNode !== null) {
+			currentNode = currentNode.nextNode
+			i++
+		}
+		if (currentNode === null || currentNode.nextNode === null) {
+			console.error('Error: Index out of range')
+			return
+		}
+		const remaining = currentNode.nextNode.nextNode
+		currentNode.nextNode = remaining
 	}
 }

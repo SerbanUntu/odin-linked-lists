@@ -12,6 +12,9 @@ list.prepend(0)
 list.prepend(-1)
 list.pop()
 
+list.insertAt(10, 4)
+list.removeAt(-4)
+
 console.log(list.toString()) // ( -1 ) -> ( 0 ) -> ( 1 ) -> ( 2 ) -> ( 3 ) -> ( 4 ) -> ( 5 ) -> null
 
 console.log(list.head) // Node { value: -1, nextNode: [Node] }
